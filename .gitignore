@@ -4,3 +4,6 @@
 
 # Firebase.
 /.firebase/
+
+# JavaScript modules.
+/node_modules/

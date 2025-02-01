@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "fmt": "prettier . --write",
+    "build": "rm -rf ./public && cp -r ./src ./public",
+    "all": "bun run fmt && bun run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
+}
