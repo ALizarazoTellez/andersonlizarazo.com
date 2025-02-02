@@ -1,0 +1,27 @@
+:root {
+  --color-base: hsl(249deg, 22%, 12%);
+  --color-text: hsl(245deg, 50%, 91%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-text);
+  text-align: center;
+  padding: 16px;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+p {
+  font-size: 24px;
+}
+
+.italic {
+  font-style: italic;
+}
