@@ -16,14 +16,11 @@
   box-sizing: border-box;
 }
 
-html {
-  background: linear-gradient(var(--color-overlay), var(--color-base));
-}
-
 body {
   margin: 0;
   color: var(--color-text);
   text-align: center;
+  background: var(--color-base);
 }
 
 @keyframes fade-in {
@@ -38,9 +35,13 @@ body {
 
 .hero {
   user-select: none;
+
   display: grid;
   place-items: center;
+
   height: 100dvh;
+
+  background: linear-gradient(var(--color-overlay), var(--color-base));
 
   .name {
     font-family: "Signika Negative", serif;
