@@ -1,15 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Signika+Negative:wght@300..700&display=swap");
 
 :root {
+  /* Rosé Pine Colors. */
   --color-base: hsl(249deg 22% 12%);
   --color-text: hsl(245deg 50% 91%);
   --color-pine: hsl(197deg 49% 38%);
   --color-overlay: hsl(248deg 25% 18%);
   --color-surface: hsl(247deg 23% 15%);
-  --text-medium: 32px;
-  --text-large: 64px;
+
+  /* Size units. */
   --size-small: 16px;
   --size-medium: 32px;
+
+  /* Text sizes. */
+  --text-medium: 1.125rem;
+  --text-large: 2rem;
+  --text-x-large: 4rem;
 }
 
 * {
@@ -18,8 +24,11 @@
 
 body {
   margin: 0;
+
+  font-size: var(--text-medium);
   color: var(--color-text);
   text-align: center;
+
   background: var(--color-base);
 }
 
@@ -40,24 +49,21 @@ body {
   place-items: center;
 
   height: 100dvh;
+  padding: var(--size-small);
 
   background: linear-gradient(var(--color-overlay), var(--color-base));
 
   .name {
     font-family: "Signika Negative", serif;
-    font-size: var(--text-large);
+    font-size: var(--text-x-large);
   }
 
   .degree {
     font-family: Caveat, serif;
-    font-size: var(--text-medium);
+    font-size: var(--text-large);
     animation-name: fade-in;
     animation-duration: 3s;
   }
-}
-
-p {
-  font-size: 24px;
 }
 
 .italic {
