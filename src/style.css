@@ -1,15 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Signika+Negative:wght@300..700&display=swap");
 
 :root {
-  --color-base: hsl(249deg, 22%, 12%);
-  --color-text: hsl(245deg, 50%, 91%);
-  --color-pine: hsl(197deg, 49%, 38%);
-  --color-overlay: hsl(248deg, 25%, 18%);
-  --color-surface: hsl(247deg, 23%, 15%);
-
+  --color-base: hsl(249deg 22% 12%);
+  --color-text: hsl(245deg 50% 91%);
+  --color-pine: hsl(197deg 49% 38%);
+  --color-overlay: hsl(248deg 25% 18%);
+  --color-surface: hsl(247deg 23% 15%);
   --text-medium: 32px;
   --text-large: 64px;
-
   --size-small: 16px;
   --size-medium: 32px;
 }
@@ -39,21 +37,19 @@ body {
 }
 
 .hero {
-  height: 100dvh;
-
   user-select: none;
   display: grid;
   place-items: center;
+  height: 100dvh;
 
   .name {
-    font-size: var(--text-large);
     font-family: "Signika Negative", serif;
+    font-size: var(--text-large);
   }
 
   .degree {
+    font-family: Caveat, serif;
     font-size: var(--text-medium);
-    font-family: "Caveat", serif;
-
     animation-name: fade-in;
     animation-duration: 3s;
   }
