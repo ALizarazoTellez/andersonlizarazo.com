@@ -4,8 +4,10 @@
 :root {
   /* Rosé Pine Colors. */
   --color-base: hsl(249deg 22% 12%);
+  --color-subtle: hsl(248deg 15% 61%);
   --color-text: hsl(245deg 50% 91%);
   --color-pine: hsl(197deg 49% 38%);
+  --color-love: hsl(343deg 76% 68%);
   --color-overlay: hsl(248deg 25% 18%);
   --color-surface: hsl(247deg 23% 15%);
 
@@ -83,6 +85,10 @@ main {
   }
 }
 
-.italic {
-  font-style: italic;
+/* stylelint-disable selector-class-pattern */
+.PUC {
+  padding: var(--size-small);
+  font-weight: bold;
+  color: var(--color-base);
+  background-color: var(--color-love);
 }
