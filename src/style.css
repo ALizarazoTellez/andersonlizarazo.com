@@ -81,10 +81,27 @@ body {
   }
 }
 
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: var(--size-medium);
+
+  background-color: var(--color-overlay);
+}
+
 main {
   section {
     scroll-snap-align: start;
     padding: var(--size-small);
+  }
+
+  section::before {
+    content: "";
+    display: block;
+    height: var(--size-medium);
   }
 
   .profile {
