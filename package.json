@@ -1,11 +1,14 @@
 {
   "scripts": {
-    "fmt": "prettier . --write",
+    "fmt": "prettier . --write && stylelint '**/*.css' --fix",
     "build": "rm -rf ./public && cp -r ./src ./public",
     "all": "bun run fmt && bun run build"
   },
   "dependencies": {},
   "devDependencies": {
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "stylelint": "^16.14.1",
+    "stylelint-config-clean-order": "^7.0.0",
+    "stylelint-config-standard": "^37.0.0"
   }
 }
