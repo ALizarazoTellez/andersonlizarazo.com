@@ -111,18 +111,20 @@ body {
 main {
   section {
     scroll-snap-align: start;
-    padding: var(--size-small);
-  }
 
-  section::before {
-    content: "";
-    display: block;
-    height: var(--topbar-height);
-  }
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-medium);
+    align-items: center;
+    justify-content: center;
 
-  .profile {
     height: 100dvh;
+    padding: var(--size-small);
+    padding-top: calc(var(--topbar-height) + var(--size-medium));
+    padding-bottom: var(--size-medium);
+  }
 
+  .introduction {
     .photo {
       max-width: 80%;
       max-height: 50%;
