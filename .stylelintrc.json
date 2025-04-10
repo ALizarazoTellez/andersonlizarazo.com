@@ -3,6 +3,7 @@
   "rules": {
     "color-named": "never",
     "color-no-hex": true,
-    "function-disallowed-list": ["rgb", "hwb", "lch"]
+    "function-disallowed-list": ["rgb", "hwb", "lch"],
+    "no-descending-specificity": [true, { "ignore": ["selectors-within-list"] }]
   }
 }

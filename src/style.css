@@ -157,6 +157,36 @@ main {
       }
     }
   }
+
+  .websites {
+    display: flex;
+    gap: var(--size-small);
+
+    article {
+      padding: var(--size-small);
+      border-radius: var(--size-small);
+      background-color: var(--color-surface);
+
+      h1 {
+        margin: 0;
+        margin-bottom: var(--size-small);
+        text-align: left;
+      }
+
+      a,
+      a:where(:link, :visited),
+      .current {
+        cursor: pointer;
+        color: var(--color-text);
+        text-decoration: none;
+      }
+
+      p {
+        margin: 0;
+        text-align: left;
+      }
+    }
+  }
 }
 
 /* stylelint-disable selector-class-pattern */
