@@ -130,6 +130,33 @@ main {
       max-height: 50%;
     }
   }
+
+  .about-me {
+    ul.social-media {
+      display: flex;
+      gap: var(--size-medium);
+      align-items: center;
+      justify-content: space-evenly;
+
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+
+      a {
+        display: block;
+        line-height: 0;
+      }
+
+      svg {
+        --size: var(--size-medium);
+
+        width: var(--size);
+        height: var(--size);
+        fill: var(--color-text);
+      }
+    }
+  }
 }
 
 /* stylelint-disable selector-class-pattern */
