@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,width=device-width" />
+    <title>Binary Clock</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --active-color: white;
+        --inactive-color: black;
+
+        background-color: var(--inactive-color);
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        width: 100dvw;
+        height: 100dvh;
+        margin: 0;
+      }
+
+      canvas#clock {
+        --spacing: calc(min(100dvw, 100dvh) * 0.1);
+        --size: calc(min(100dvw, 100dvh) - var(--spacing) * 2);
+        width: var(--size);
+        height: var(--size);
+
+        border: 1px solid var(--active-color);
+        padding: var(--spacing);
+      }
+    </style>
+
+    <script type="module">
+      const canvas = document.querySelector("canvas#clock");
+      const ctx = canvas.getContext("2d");
+
+      let width;
+      let height;
+
+      configure();
+      window.addEventListener("resize", configure);
+
+      const activeColor = window
+        .getComputedStyle(canvas)
+        .getPropertyValue("--active-color");
+      const inactiveColor = window
+        .getComputedStyle(canvas)
+        .getPropertyValue("--inactive-color");
+
+      draw();
+
+      function configure() {
+        const dpr = window.devicePixelRatio;
+        const size = parseInt(
+          window
+            .getComputedStyle(canvas)
+            .getPropertyValue("width")
+            .slice(0, -2),
+        );
+
+        canvas.width = size * dpr;
+        canvas.height = size * dpr;
+
+        ctx.scale(dpr, dpr);
+
+        width = size;
+        height = size;
+      }
+
+      function draw() {
+        const date = new Date();
+
+        const hourLeft = decimal2binary(Math.floor(date.getHours() / 10));
+        const hourRight = decimal2binary(date.getHours() % 10);
+        const minuteLeft = decimal2binary(Math.floor(date.getMinutes() / 10));
+        const minuteRight = decimal2binary(date.getMinutes() % 10);
+        const secondLeft = decimal2binary(
+          Math.floor(date.getSeconds() / 10),
+        ).reverse();
+        const secondRight = decimal2binary(date.getSeconds() % 10).reverse();
+
+        for (let i = 0; i < 4; i++) {
+          let binary;
+          switch (i) {
+            case 0:
+              binary = hourLeft;
+              break;
+            case 1:
+              binary = hourRight;
+              break;
+            case 2:
+              binary = minuteLeft;
+              break;
+            case 3:
+              binary = minuteRight;
+          }
+
+          for (let j = 0; j < 4; j++) {
+            if (binary[j]) {
+              ctx.fillStyle = activeColor;
+            } else {
+              ctx.fillStyle = inactiveColor;
+            }
+
+            ctx.fillRect(
+              i * (width / 4),
+              j * (height / 6),
+              width / 4,
+              height / 6,
+            );
+          }
+
+          for (let j = 4; j < 6; j++) {
+            let binary;
+            switch (j) {
+              case 4:
+                binary = secondLeft;
+                break;
+              case 5:
+                binary = secondRight;
+            }
+
+            for (let i = 0; i < 4; i++) {
+              if (binary[i]) {
+                ctx.fillStyle = activeColor;
+              } else {
+                ctx.fillStyle = inactiveColor;
+              }
+
+              ctx.fillRect(
+                i * (width / 4),
+                j * (height / 6),
+                width / 4,
+                height / 6,
+              );
+            }
+          }
+        }
+
+        window.requestAnimationFrame(draw);
+      }
+
+      function decimal2binary(digit) {
+        const binary = new Array(4);
+        for (let i = binary.length - 1; i >= 0; i--) {
+          if (digit % 2 == 1) {
+            binary[i] = true;
+          } else {
+            binary[i] = false;
+          }
+
+          digit = Math.floor(digit / 2);
+        }
+
+        return binary;
+      }
+    </script>
+  </head>
+
+  <body>
+    <canvas id="clock"> Your browser doesn't support this webpage. </canvas>
+  </body>
+</html>
