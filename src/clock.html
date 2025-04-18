@@ -14,43 +14,72 @@
         --active-color: white;
         --inactive-color: black;
 
+        --max-size: min(100dvw, 100dvh);
+
+        --spacing: calc(var(--max-size) * 0.1);
+        --border-size: 1px;
+
+        --top-size: calc(
+          var(--max-size) - var(--spacing) * 2 - var(--border-size) * 2
+        );
+        --bottom-size: calc(
+          (var(--top-size) - var(--spacing) * 2) / 2 + var(--spacing) * 2
+        );
+
+        --shortest-size: calc(var(--top-size) + var(--border-size) * 2);
+        --largest-size: calc(
+          var(--top-size) + var(--bottom-size) + var(--border-size) * 3
+        );
+
         background-color: var(--inactive-color);
       }
 
       body {
-        display: grid;
-        place-items: center;
-        width: 100dvw;
-        height: 100dvh;
         margin: 0;
       }
 
-      canvas#clock {
-        --spacing: calc(min(100dvw, 100dvh) * 0.1);
-        --size: calc(min(100dvw, 100dvh) - var(--spacing) * 2);
-        width: var(--size);
-        height: var(--size);
+      .container {
+        display: grid;
+        grid-template-columns: var(--top-size);
+        grid-template-rows: var(--top-size) var(--bottom-size);
+        width: var(--shortest-size);
+        height: var(--largest-size);
 
-        border: 1px solid var(--active-color);
+        background-color: var(--active-color);
+        gap: var(--border-size);
+
+        margin: var(--spacing);
+        border: var(--border-size) solid var(--active-color);
+      }
+
+      canvas {
         padding: var(--spacing);
+        background-color: var(--inactive-color);
+        width: 100%;
+        height: 100%;
       }
     </style>
 
     <script type="module">
-      const canvas = document.querySelector("canvas#clock");
-      const ctx = canvas.getContext("2d");
+      const canvasTime = document.querySelector("canvas#time");
+      const canvasTimeCtx = canvasTime.getContext("2d");
 
-      let width;
-      let height;
+      const canvasSeconds = document.querySelector("canvas#seconds");
+      const canvasSecondsCtx = canvasSeconds.getContext("2d");
+
+      let canvasTimeWidth;
+      let canvasTimeHeight;
+      let canvasSecondsWidth;
+      let canvasSecondsHeight;
 
       configure();
       window.addEventListener("resize", configure);
 
       const activeColor = window
-        .getComputedStyle(canvas)
+        .getComputedStyle(canvasTime)
         .getPropertyValue("--active-color");
       const inactiveColor = window
-        .getComputedStyle(canvas)
+        .getComputedStyle(canvasTime)
         .getPropertyValue("--inactive-color");
 
       draw();
@@ -59,18 +88,23 @@
         const dpr = window.devicePixelRatio;
         const size = parseInt(
           window
-            .getComputedStyle(canvas)
-            .getPropertyValue("width")
+            .getComputedStyle(canvasTime)
+            .getPropertyValue("width") // Or height.
             .slice(0, -2),
         );
 
-        canvas.width = size * dpr;
-        canvas.height = size * dpr;
+        canvasTime.width = size * dpr;
+        canvasTime.height = size * dpr;
+        canvasSeconds.width = size * dpr;
+        canvasSeconds.height = size * dpr;
 
-        ctx.scale(dpr, dpr);
+        canvasTimeCtx.scale(dpr, dpr);
+        canvasSecondsCtx.scale(dpr, dpr);
 
-        width = size;
-        height = size;
+        canvasTimeWidth = size;
+        canvasTimeHeight = size;
+        canvasSecondsWidth = size;
+        canvasSecondsHeight = size;
       }
 
       function draw() {
@@ -103,41 +137,41 @@
 
           for (let j = 0; j < 4; j++) {
             if (binary[j]) {
-              ctx.fillStyle = activeColor;
+              canvasTimeCtx.fillStyle = activeColor;
             } else {
-              ctx.fillStyle = inactiveColor;
+              canvasTimeCtx.fillStyle = inactiveColor;
             }
 
-            ctx.fillRect(
-              i * (width / 4),
-              j * (height / 6),
-              width / 4,
-              height / 6,
+            canvasTimeCtx.fillRect(
+              i * (canvasTimeWidth / 4),
+              j * (canvasTimeHeight / 4),
+              canvasTimeWidth / 4,
+              canvasTimeHeight / 4,
             );
           }
 
-          for (let j = 4; j < 6; j++) {
+          for (let j = 0; j < 2; j++) {
             let binary;
             switch (j) {
-              case 4:
+              case 0:
                 binary = secondLeft;
                 break;
-              case 5:
+              case 1:
                 binary = secondRight;
             }
 
             for (let i = 0; i < 4; i++) {
               if (binary[i]) {
-                ctx.fillStyle = activeColor;
+                canvasSecondsCtx.fillStyle = activeColor;
               } else {
-                ctx.fillStyle = inactiveColor;
+                canvasSecondsCtx.fillStyle = inactiveColor;
               }
 
-              ctx.fillRect(
-                i * (width / 4),
-                j * (height / 6),
-                width / 4,
-                height / 6,
+              canvasSecondsCtx.fillRect(
+                i * (canvasSecondsWidth / 4),
+                j * (canvasSecondsHeight / 2),
+                canvasSecondsWidth / 4,
+                canvasSecondsHeight / 2,
               );
             }
           }
@@ -164,6 +198,9 @@
   </head>
 
   <body>
-    <canvas id="clock"> Your browser doesn't support this webpage. </canvas>
+    <div class="container">
+      <canvas id="time"> Your browser doesn't support this webpage. </canvas>
+      <canvas id="seconds"> Your browser doesn't support this webpage. </canvas>
+    </div>
   </body>
 </html>
